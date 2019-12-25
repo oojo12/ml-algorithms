@@ -4,9 +4,23 @@ class k_means():
     import numpy as np
 
     def __init__(self,num_clusters,max_iter,data,random_state):
+        ## Tests
         assert (type(np.array(1)) ==  type(data)) or (type(pd.DataFrame()) == type(data)),\
         "not a pandas data frame or a numpy array"
 
+        if isinstance(data,type(pd.DataFrame())):
+            df = pd.DataFrame({'float': [1.0],
+                   'int': [1],
+                   'datetime': [pd.Timestamp('20180310')],
+                   'string': ['foo']})
+            assert (data.dtypes != df.dtypes[2]).all() or (data.dtypes != df.dtypes[3]).all(),\
+            """
+                dataframe contains datetime or string types. This implementation only supports
+                float or int data types.
+            """
+        else:
+            """fill with appropriate test for numpy array."""
+            pass
         self.data = data
         self.num_clusters = num_clusters
         self.max_iter = max_iter

@@ -4,7 +4,6 @@ class k_means():
     import numpy as np
 
     def __init__(self,num_clusters,max_iter,data,random_state):
-        ## Tests
         assert (type(np.array(1)) ==  type(data)) or (type(pd.DataFrame()) == type(data)),\
         "not a pandas data frame or a numpy array"
 
@@ -75,3 +74,8 @@ class k_means():
                     break
 
             self.prev_labels = self.data['ASSIGNMENT'].copy()
+    
+    def predict(self):
+        calc_dist()
+        assign()
+        return self.data['ASSIGNMENT']

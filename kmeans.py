@@ -2,7 +2,9 @@ class k_means():
     """Implementation of the classic k-means algorithm"""
     import pandas as pd
     import numpy as np
-
+    __author__ = "Femi"
+    __version__ = "1"
+    __status__ = "Development"
     def __init__(self,num_clusters,max_iter,data,random_state):
         assert (type(np.array(1)) ==  type(data)) or (type(pd.DataFrame()) == type(data)),\
         "not a pandas data frame or a numpy array"
@@ -74,8 +76,7 @@ class k_means():
                     break
 
             self.prev_labels = self.data['ASSIGNMENT'].copy()
-    
+
     def predict(self):
-        calc_dist()
-        assign()
+        self.assign()
         return self.data['ASSIGNMENT']

@@ -11,6 +11,9 @@ import numpy as np
     output:
     pandas dataframe of class predictions
 """
+__author__ = "Femi"
+__version__ = "1"
+__status__ = "Developing"
 
 class knn:
 

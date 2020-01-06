@@ -1,10 +1,13 @@
+import pandas as pd
+import numpy as np
+
+"""Implementation of the classic k-means algorithm"""
+
+__author__ = "Femi"
+__version__ = "1"
+__status__ = "Developing"
+
 class k_means():
-    """Implementation of the classic k-means algorithm"""
-    import pandas as pd
-    import numpy as np
-    __author__ = "Femi"
-    __version__ = "1"
-    __status__ = "Development"
     def __init__(self,num_clusters,max_iter,data,random_state):
         assert (type(np.array(1)) ==  type(data)) or (type(pd.DataFrame()) == type(data)),\
         "not a pandas data frame or a numpy array"
@@ -64,7 +67,8 @@ class k_means():
             self.data['ASSIGNMENT'] =  np.argmin(self.distance, axis = 0)
         else:
             """Update this block to allow functionallity with numpy arrays"""
-    # Train model
+
+    # Train model. Update to reflect updating centroids based on training data only
     def fit(self):
         for iteration in range(self.max_iter):
             self.calc_dist()
@@ -77,6 +81,7 @@ class k_means():
 
             self.prev_labels = self.data['ASSIGNMENT'].copy()
 
+    # Update to predict centroid assignment based on nearest centroid
     def predict(self):
         self.assign()
         return self.data['ASSIGNMENT']

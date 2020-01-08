@@ -8,8 +8,8 @@ __version__ = "1"
 __status__ = "Developing"
 
 class k_means():
-    def __init__(self,num_clusters,max_iter,data,random_state):
-        assert (type(np.array(1)) ==  type(data)) or (type(pd.DataFrame()) == type(data)),\
+    def __init__(self,num_clusters,max_iter,train_data,random_state,test_data=None):
+        assert (type(np.array(1)) ==  type(train_data)) or (type(pd.DataFrame()) == type(train_data)),\
         "not a pandas data frame or a numpy array"
 
         if isinstance(data,type(pd.DataFrame())):
@@ -25,11 +25,12 @@ class k_means():
         else:
             """fill with appropriate test for numpy array."""
             pass
-        self.data = data
+        self.data = train_data
         self.num_clusters = num_clusters
         self.max_iter = max_iter
         self.seed = random_state
         self.init_centroids()
+        self.test_data = self.test_data
 
     # Initialize centroids
     def init_centroids(self):
@@ -62,13 +63,15 @@ class k_means():
             """Update this block to allow functionallity with numpy arrays"""
 
     # Assign centroids to data
-    def assign(self):
+    def assign(self,semi_predict=False):
         if isinstance(self.data,type(pd.DataFrame())):
-            self.data['ASSIGNMENT'] =  np.argmin(self.distance, axis = 0)
+            if not semi_predict:
+                self.data['ASSIGNMENT'] =  np.argmin(self.distance, axis = 0)
+            else:
+                self.test_data['ASSIGNMENT'] =  np.argmin(self.distance, axis = 0)
         else:
             """Update this block to allow functionallity with numpy arrays"""
 
-    # Train model. Update to reflect updating centroids based on training data only
     def fit(self):
         for iteration in range(self.max_iter):
             self.calc_dist()
@@ -81,7 +84,14 @@ class k_means():
 
             self.prev_labels = self.data['ASSIGNMENT'].copy()
 
-    # Update to predict centroid assignment based on nearest centroid
+
     def predict(self):
         self.assign()
         return self.data['ASSIGNMENT']
+
+    def semi_predict(self):
+        assert (self.test_date != None),\
+        "No test data passed as argument"
+        self.calc_dist()
+        self.assign()
+        return self.test_data['ASSIGNMENT']

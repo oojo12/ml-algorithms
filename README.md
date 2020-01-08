@@ -1,4 +1,3 @@
-# ml-algorithms
 *Last updated 1/8/2020
 
 ## This repository holds the following algorithms broken up by types
